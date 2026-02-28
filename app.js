@@ -10,7 +10,7 @@ const TRACKER_ICONS = ['🌱', '🗑️', '🛏️', '♻️', '🍵', '🧹', '
 const PERMANENT_ITEMS = ['Bananen', 'Hafermilch', 'Kaffee', 'Gefrierobst', 'Haferflocken', 'Eier', 'Tofu'];
 
 // Passwort-Hash (SHA-256)
-const PASSWORD_HASH = '59598f97ddde04a2f0c1b6f5271d19510b2dd94ecf94421c4b2fef2e279ae896';
+const PASSWORD_HASH = '292ac9e3d95a8fcb7cc6b0b6af25a65e83e15afe8ce7dc92cc5ff904f602e696';
 
 // Initialize app
 document.addEventListener('DOMContentLoaded', () => {
