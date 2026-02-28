@@ -1,2 +1,2 @@
 # BoehmBot
-Hausverwaltung
+Haushaltsverwaltung
