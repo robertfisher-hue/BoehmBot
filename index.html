@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#FA8072">
+    <title>Haushalt</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="icon-192.png">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Loading Screen -->
+        <div id="loading-screen">
+            <div class="loading-spinner"></div>
+            <p>Lädt...</p>
+        </div>
+
+        <!-- Login Screen -->
+        <div id="login-screen" class="screen">
+            <div class="login-container">
+                <h1 class="app-title">Haushalt</h1>
+                <p class="login-subtitle">Gemeinsame Organisation</p>
+                <div class="login-form">
+                    <input type="password" id="password-input" placeholder="Passwort eingeben">
+                    <button id="login-btn" class="login-btn">Anmelden</button>
+                    <p id="login-error" class="login-error hidden">Falsches Passwort</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main App -->
+        <div id="main-app" class="screen hidden">
+            <!-- Navigation -->
+            <nav class="bottom-nav">
+                <button class="nav-btn active" data-page="termine">
+                    <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="4" width="18" height="18" rx="2"/>
+                        <line x1="16" y1="2" x2="16" y2="6"/>
+                        <line x1="8" y1="2" x2="8" y2="6"/>
+                        <line x1="3" y1="10" x2="21" y2="10"/>
+                    </svg>
+                    <span>Termine</span>
+                </button>
+                <button class="nav-btn" data-page="tracker">
+                    <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                        <polyline points="22 4 12 14.01 9 11.01"/>
+                    </svg>
+                    <span>Tracker</span>
+                </button>
+                <button class="nav-btn" data-page="einkauf">
+                    <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 11H5a2 2 0 0 0-2 2v3c0 1.1.9 2 2 2h4m0-7v7m0-7V8a2 2 0 0 1 2-2h2M9 18h6m0 0h4a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2h-4m0 7v-7m0 0V8a2 2 0 0 0-2-2h-2m0 0H9"/>
+                    </svg>
+                    <span>Einkauf</span>
+                </button>
+                <button class="nav-btn" data-page="bestand">
+                    <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                        <polyline points="9 22 9 12 15 12 15 22"/>
+                    </svg>
+                    <span>Bestand</span>
+                </button>
+            </nav>
+
+            <!-- Pages -->
+            <div id="pages-container">
+                <!-- Termine Page -->
+                <div class="page active" id="termine-page">
+                    <div class="page-header">
+                        <h2>Termine</h2>
+                        <button id="logout-btn" class="icon-btn">
+                            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                                <polyline points="16 17 21 12 16 7"/>
+                                <line x1="21" y1="12" x2="9" y2="12"/>
+                            </svg>
+                        </button>
+                    </div>
+
+                    <!-- Berlin Trips Section -->
+                    <div class="section">
+                        <h3 class="section-title">Berlin-Fahrten</h3>
+                        <div class="card">
+                            <div class="input-group">
+                                <div class="input-row">
+                                    <label>Hinfahrt</label>
+                                    <input type="date" id="berlin-departure-date">
+                                    <select id="berlin-departure-time">
+                                        <option value="morgens">Morgens</option>
+                                        <option value="abends">Abends</option>
+                                    </select>
+                                </div>
+                                <div class="input-row">
+                                    <label>Rückfahrt</label>
+                                    <input type="date" id="berlin-return-date">
+                                    <select id="berlin-return-time">
+                                        <option value="morgens">Morgens</option>
+                                        <option value="abends">Abends</option>
+                                    </select>
+                                </div>
+                                <button id="add-berlin-trip-btn" class="btn-primary">Trip hinzufügen</button>
+                            </div>
+                            <div id="berlin-trips-calendar" class="berlin-calendar"></div>
+                        </div>
+                    </div>
+
+                    <!-- Appointments Section -->
+                    <div class="section">
+                        <h3 class="section-title">Gemeinsame Termine</h3>
+                        <div class="card">
+                            <div class="input-group">
+                                <input type="date" id="appointment-date" placeholder="Datum">
+                                <div class="checkbox-group">
+                                    <input type="checkbox" id="all-day-checkbox">
+                                    <label for="all-day-checkbox">Ganztägig</label>
+                                </div>
+                                <input type="time" id="appointment-time" placeholder="Uhrzeit">
+                                <input type="text" id="appointment-subject" placeholder="Betreff">
+                                <button id="add-appointment-btn" class="btn-primary">Termin hinzufügen</button>
+                            </div>
+                        </div>
+                        <div id="appointments-list" class="appointments-list"></div>
+                    </div>
+                </div>
+
+                <!-- Tracker Page -->
+                <div class="page" id="tracker-page">
+                    <div class="page-header">
+                        <h2>Haushalts-Tracker</h2>
+                        <button id="add-tracker-btn" class="icon-btn">
+                            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="12" y1="5" x2="12" y2="19"/>
+                                <line x1="5" y1="12" x2="19" y2="12"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div id="trackers-list" class="trackers-list"></div>
+                </div>
+
+                <!-- Einkaufsliste Page -->
+                <div class="page" id="einkauf-page">
+                    <div class="page-header">
+                        <h2>Einkaufsliste</h2>
+                    </div>
+                    <div class="card">
+                        <div class="input-group">
+                            <input type="text" id="shopping-item-input" placeholder="Neuer Artikel">
+                            <button id="add-shopping-item-btn" class="btn-primary">Hinzufügen</button>
+                        </div>
+                    </div>
+                    <div id="shopping-list" class="checklist"></div>
+                </div>
+
+                <!-- Bestandsliste Page -->
+                <div class="page" id="bestand-page">
+                    <div class="page-header">
+                        <h2>Bestandsliste</h2>
+                        <button id="add-inventory-btn" class="icon-btn">
+                            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="12" y1="5" x2="12" y2="19"/>
+                                <line x1="5" y1="12" x2="19" y2="12"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div id="inventory-list" class="checklist"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <div id="add-tracker-modal" class="modal">
+        <div class="modal-content">
+            <h3>Neuer Tracker</h3>
+            <input type="text" id="new-tracker-name" placeholder="Name">
+            <div class="icon-selector" id="icon-selector"></div>
+            <input type="number" id="new-tracker-goal" placeholder="Ziel in Tagen" min="1">
+            <div class="modal-actions">
+                <button id="cancel-tracker-btn" class="btn-secondary">Abbrechen</button>
+                <button id="save-tracker-btn" class="btn-primary">Speichern</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="add-inventory-modal" class="modal">
+        <div class="modal-content">
+            <h3>Zum Bestand hinzufügen</h3>
+            <input type="text" id="new-inventory-item" placeholder="Artikel">
+            <div class="checkbox-group">
+                <input type="checkbox" id="permanent-item-checkbox">
+                <label for="permanent-item-checkbox">Dauerlauf-Artikel</label>
+            </div>
+            <div class="modal-actions">
+                <button id="cancel-inventory-btn" class="btn-secondary">Abbrechen</button>
+                <button id="save-inventory-btn" class="btn-primary">Hinzufügen</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+    
+    <script src="firebase-config.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
